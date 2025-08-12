@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Save, X, Github, ExternalLink, Calendar, Lock, Mail, Eye, EyeOff, Upload, Image as ImageIcon, FileText, Download } from 'lucide-react'
+import Image from 'next/image'
 import ImageCarousel from '@/components/ImageCarousel'
 
 interface Project {
@@ -810,9 +811,11 @@ export default function Dashboard() {
                       <div className="grid grid-cols-3 gap-3 mb-3">
                         {uploadedImageUrls.map((imageUrl, index) => (
                           <div key={`uploaded-image-${imageUrl}-${index}`} className="relative group">
-                            <img
+                            <Image
                               src={imageUrl}
                               alt={`Project image ${index + 1}`}
+                              width={96}
+                              height={96}
                               className="w-full h-24 object-cover rounded-lg"
                             />
                             <button

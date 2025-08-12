@@ -149,13 +149,13 @@ export default function About() {
             >
               <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">About Me</h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                I'm a passionate full-stack developer with a love for creating beautiful, 
+                I&apos;m a passionate full-stack developer with a love for creating beautiful, 
                 functional, and user-centered digital experiences. With over 3 years of 
                 experience in web development, I specialize in modern JavaScript frameworks 
                 and have a keen eye for design.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                When I'm not coding, you can find me exploring new technologies, 
+                When I&apos;m not coding, you can find me exploring new technologies, 
                 contributing to open-source projects, or enjoying a good cup of coffee 
                 while reading about the latest trends in web development.
               </p>
@@ -342,10 +342,10 @@ export default function About() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Let's Work Together
+              Let&apos;s Work Together
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              I'm always interested in hearing about new opportunities and exciting projects.
+              I&apos;m always interested in hearing about new opportunities and exciting projects.
             </p>
             <motion.a
               href="/contact"

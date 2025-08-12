@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 
 interface ImageCarouselProps {
   images: string[]
@@ -36,9 +37,11 @@ export default function ImageCarousel({ images, alt, className = '' }: ImageCaro
 
   if (images.length === 1) {
     return (
-      <img
+      <Image
         src={images[0]}
         alt={alt}
+        width={400}
+        height={300}
         className={`w-full h-full object-cover rounded-lg ${className}`}
         style={{ maxHeight: '100%' }}
       />
@@ -69,10 +72,12 @@ export default function ImageCarousel({ images, alt, className = '' }: ImageCaro
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images.map((image, index) => (
-          <img
+          <Image
             key={`carousel-${image}-${index}`}
             src={image}
             alt={`${alt} - Image ${index + 1}`}
+            width={400}
+            height={300}
             className="w-full h-full object-cover flex-shrink-0"
             style={{ maxHeight: '100%' }}
           />

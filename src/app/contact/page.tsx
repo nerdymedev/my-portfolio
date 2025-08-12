@@ -70,7 +70,7 @@ export default function Contact() {
               Get In <span className="neon-text">Touch</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+              Have a project in mind? Let&apos;s discuss how we can work together to bring your ideas to life.
             </p>
           </motion.div>
         </div>
@@ -86,9 +86,9 @@ export default function Contact() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl font-bold mb-8 dark:text-white">Let's Connect</h2>
+              <h2 className="text-3xl font-bold mb-8 dark:text-white">Let&apos;s Connect</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-8 text-lg">
-                I'm always interested in hearing about new opportunities and exciting projects. 
+                I&apos;m always interested in hearing about new opportunities and exciting projects. 
                 Whether you have a question or just want to say hi, feel free to reach out!
               </p>
               
@@ -187,7 +187,7 @@ export default function Contact() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg text-green-800 dark:text-green-300"
                 >
-                  Thank you for your message! I'll get back to you soon.
+                  Thank you for your message! I&apos;ll get back to you soon.
                 </motion.div>
               )}
               

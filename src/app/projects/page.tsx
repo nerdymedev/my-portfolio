@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Github, ExternalLink, Calendar } from 'lucide-react'
+import Image from 'next/image'
 import ImageCarousel from '@/components/ImageCarousel'
 import ProjectModal from '@/components/ProjectModal'
 
@@ -159,9 +160,11 @@ export default function Projects() {
               {/* Project Image */}
               {project.imageUrls && project.imageUrls.length > 0 && (
                 <div className="w-full h-64 overflow-hidden relative">
-                  <img
+                  <Image
                     src={project.imageUrls[0]}
                     alt={project.title}
+                    width={400}
+                    height={256}
                     className="w-full h-full object-cover"
                   />
                   {project.imageUrls.length > 1 && (

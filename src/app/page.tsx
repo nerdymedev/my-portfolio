@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Github, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import ImageCarousel from '@/components/ImageCarousel'
 import ProjectModal from '@/components/ProjectModal'
@@ -118,7 +119,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-4xl lg:text-6xl font-bold mb-6"
               >
-                Hi, I'm{' '}
+                Hi, I&apos;m{' '}
                 <span className="neon-text">Abdulkareem .O</span>
               </motion.h1>
               
@@ -164,9 +165,11 @@ export default function Home() {
                     
                     {/* Profile Image */}
                     <div className="w-full h-full overflow-hidden">
-                      <img 
+                      <Image 
                         src="/assets/profile-pic.png" 
                         alt="Profile Picture" 
+                        width={400}
+                        height={400}
                         className="w-full h-full object-cover object-center"
                       />
                     </div>
@@ -272,9 +275,11 @@ export default function Home() {
                 className="p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
               >
                 <div className="w-12 h-12 mb-4 mx-auto">
-                  <img 
+                  <Image 
                     src={tech.iconPath} 
                     alt={`${tech.name} logo`} 
+                    width={48}
+                    height={48}
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -316,9 +321,11 @@ export default function Home() {
                 <div className="h-64 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
                   {project.imageUrls && project.imageUrls.length > 0 ? (
                     <>
-                      <img 
+                      <Image 
                         src={project.imageUrls[0]} 
                         alt={project.title}
+                        width={400}
+                        height={256}
                         className="w-full h-full object-cover"
                       />
                       {project.imageUrls.length > 1 && (
