@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import Project from '@/models/Project'
 
+// Ensure this route is dynamic for Vercel
+export const dynamic = 'force-dynamic'
+
 // GET /api/projects - Fetch all projects
 export async function GET(request: NextRequest) {
   try {

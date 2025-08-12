@@ -3,6 +3,9 @@ import { v2 as cloudinary } from 'cloudinary'
 import dbConnect from '@/lib/mongodb'
 import Resume from '@/models/Resume'
 
+// Ensure this route is dynamic for Vercel
+export const dynamic = 'force-dynamic'
+
 // Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

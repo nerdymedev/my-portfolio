@@ -3,6 +3,9 @@ import dbConnect from '@/lib/mongodb'
 import Project from '@/models/Project'
 import mongoose from 'mongoose'
 
+// Ensure this route is dynamic for Vercel
+export const dynamic = 'force-dynamic'
+
 // GET /api/projects/[id] - Fetch a single project
 export async function GET(
   request: NextRequest,
