@@ -16,10 +16,7 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['mongoose'],
   },
-  // Skip API routes during static generation
-  generateStaticParams: async () => {
-    return []
-  },
+
 }
 
 module.exports = nextConfig
