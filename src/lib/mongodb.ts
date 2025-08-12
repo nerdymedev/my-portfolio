@@ -1,11 +1,17 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI!
+const MONGODB_URI = process.env.MONGODB_URI
 
 if (!MONGODB_URI) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  )
+  // During build time, MONGODB_URI might not be available
+  // This is acceptable for static generation
+  if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL) {
+    console.warn('MONGODB_URI not available during build time')
+  } else {
+    throw new Error(
+      'Please define the MONGODB_URI environment variable inside .env.local'
+    )
+  }
 }
 
 /**
@@ -22,6 +28,11 @@ if (!cached) {
 async function dbConnect() {
   if (cached.conn) {
     return cached.conn
+  }
+
+  // Handle case where MONGODB_URI is not available (e.g., during build)
+  if (!MONGODB_URI) {
+    throw new Error('Database connection not available')
   }
 
   if (!cached.promise) {
