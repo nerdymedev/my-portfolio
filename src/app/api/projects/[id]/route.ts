@@ -5,6 +5,8 @@ import mongoose from 'mongoose'
 
 // Ensure this route is dynamic for Vercel
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+export const revalidate = false
 
 // GET /api/projects/[id] - Fetch a single project
 export async function GET(
@@ -12,14 +14,6 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Prevent execution during build time
-    if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL && !process.env.MONGODB_URI) {
-      return NextResponse.json(
-        { success: false, error: 'Database not available during build' },
-        { status: 503 }
-      )
-    }
-    
     await dbConnect()
     
     const { id } = params
@@ -69,14 +63,6 @@ export async function PUT(
   const { id } = params
   
   try {
-    // Prevent execution during build time
-    if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL && !process.env.MONGODB_URI) {
-      return NextResponse.json(
-        { success: false, error: 'Database not available during build' },
-        { status: 503 }
-      )
-    }
-    
     await dbConnect()
     
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -150,14 +136,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Prevent execution during build time
-    if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL && !process.env.MONGODB_URI) {
-      return NextResponse.json(
-        { success: false, error: 'Database not available during build' },
-        { status: 503 }
-      )
-    }
-    
     await dbConnect()
     
     const { id } = params

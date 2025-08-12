@@ -4,18 +4,12 @@ import Project from '@/models/Project'
 
 // Ensure this route is dynamic for Vercel
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+export const revalidate = false
 
 // GET /api/projects - Fetch all projects
 export async function GET(request: NextRequest) {
   try {
-    // Prevent execution during build time
-    if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL && !process.env.MONGODB_URI) {
-      return NextResponse.json(
-        { success: false, error: 'Database not available during build' },
-        { status: 503 }
-      )
-    }
-    
     await dbConnect()
     
     const { searchParams } = new URL(request.url)
@@ -72,14 +66,6 @@ export async function GET(request: NextRequest) {
 // POST /api/projects - Create a new project
 export async function POST(request: NextRequest) {
   try {
-    // Prevent execution during build time
-    if (process.env.NODE_ENV === 'production' && !process.env.VERCEL_URL && !process.env.MONGODB_URI) {
-      return NextResponse.json(
-        { success: false, error: 'Database not available during build' },
-        { status: 503 }
-      )
-    }
-    
     await dbConnect()
     
     const body = await request.json()
