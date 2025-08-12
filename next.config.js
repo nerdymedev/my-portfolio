@@ -12,6 +12,14 @@ const nextConfig = {
       },
     ],
   },
+  // Prevent API routes from being statically analyzed during build
+  experimental: {
+    serverComponentsExternalPackages: ['mongoose'],
+  },
+  // Skip API routes during static generation
+  generateStaticParams: async () => {
+    return []
+  },
 }
 
 module.exports = nextConfig
