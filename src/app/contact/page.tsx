@@ -119,7 +119,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg dark:text-white">Phone</h3>
-                    <p className="text-gray-600 dark:text-gray-300">+1 (555) 123-4567</p>
+                    <p className="text-gray-600 dark:text-gray-300">+234-903-896-5452</p>
                   </div>
                 </motion.div>
                 
@@ -134,7 +134,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg dark:text-white">Location</h3>
-                    <p className="text-gray-600 dark:text-gray-300">San Francisco, CA</p>
+                    <p className="text-gray-600 dark:text-gray-300">Garki, Abuja</p>
                   </div>
                 </motion.div>
               </div>
