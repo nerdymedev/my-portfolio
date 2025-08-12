@@ -1,18 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { v2 as cloudinary } from 'cloudinary'
 
 // Ensure this route is dynamic for Vercel
 export const dynamic = 'force-dynamic'
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
+export const runtime = 'nodejs'
+export const revalidate = false
 
 export async function POST(request: NextRequest) {
   try {
+    const { v2: cloudinary } = await import('cloudinary')
+    
+    // Configure Cloudinary
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    })
+    
     // Debug: Check if Cloudinary credentials are loaded
     console.log('Cloudinary config:', {
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

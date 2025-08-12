@@ -1,20 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { v2 as cloudinary } from 'cloudinary'
-import dbConnect from '@/lib/mongodb'
-import Resume from '@/models/Resume'
 
 // Ensure this route is dynamic for Vercel
 export const dynamic = 'force-dynamic'
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
+export const runtime = 'nodejs'
+export const revalidate = false
 
 export async function POST(request: NextRequest) {
   try {
+    const { v2: cloudinary } = await import('cloudinary')
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Resume = (await import('@/models/Resume')).default
+    
+    // Configure Cloudinary
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    })
+    
     const formData = await request.formData()
     const file = formData.get('file') as File
 
@@ -108,6 +111,9 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Resume = (await import('@/models/Resume')).default
+    
     await dbConnect()
     
     // Get active resume from MongoDB
@@ -137,6 +143,17 @@ export async function GET() {
 
 export async function DELETE() {
   try {
+    const { v2: cloudinary } = await import('cloudinary')
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Resume = (await import('@/models/Resume')).default
+    
+    // Configure Cloudinary
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    })
+    
     await dbConnect()
     
     // Get active resume from MongoDB
