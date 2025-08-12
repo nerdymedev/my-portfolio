@@ -54,8 +54,9 @@ const ResumeSchema = new Schema<IResume>({
   timestamps: true
 })
 
-// Ensure only one active resume at a time
-ResumeSchema.index({ isActive: 1 }, { unique: true, partialFilterExpression: { isActive: true } })
+// Ensure only one active resume at a time - removed unique constraint to prevent conflicts
+// ResumeSchema.index({ isActive: 1 }, { unique: true, partialFilterExpression: { isActive: true } })
+ResumeSchema.index({ isActive: 1 })
 ResumeSchema.index({ uploadedAt: -1 })
 
 export default mongoose.models.Resume || mongoose.model<IResume>('Resume', ResumeSchema)

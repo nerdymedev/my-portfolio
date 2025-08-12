@@ -7,6 +7,19 @@ export const revalidate = false
 
 export async function POST(request: NextRequest) {
   try {
+    // Check environment variables first
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      console.error('Missing Cloudinary environment variables:', {
+        cloud_name: !!process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: !!process.env.CLOUDINARY_API_KEY,
+        api_secret: !!process.env.CLOUDINARY_API_SECRET
+      })
+      return NextResponse.json(
+        { error: 'Server configuration error: Missing Cloudinary credentials' },
+        { status: 500 }
+      )
+    }
+
     const { v2: cloudinary } = await import('cloudinary')
     const dbConnect = (await import('@/lib/mongodb')).default
     const Resume = (await import('@/models/Resume')).default
@@ -70,7 +83,9 @@ export async function POST(request: NextRequest) {
     console.log('Upload successful:', result)
 
     // Connect to database and save resume metadata
+    console.log('Attempting to connect to database...')
     await dbConnect()
+    console.log('Database connection successful')
     
     // Deactivate any existing resumes
     await Resume.updateMany({}, { isActive: false })
@@ -159,6 +174,19 @@ export async function GET() {
 
 export async function DELETE() {
   try {
+    // Check environment variables first
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      console.error('Missing Cloudinary environment variables:', {
+        cloud_name: !!process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: !!process.env.CLOUDINARY_API_KEY,
+        api_secret: !!process.env.CLOUDINARY_API_SECRET
+      })
+      return NextResponse.json(
+        { error: 'Server configuration error: Missing Cloudinary credentials' },
+        { status: 500 }
+      )
+    }
+
     const { v2: cloudinary } = await import('cloudinary')
     const dbConnect = (await import('@/lib/mongodb')).default
     const Resume = (await import('@/models/Resume')).default
