@@ -102,8 +102,16 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Resume upload error:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      name: error instanceof Error ? error.name : 'Unknown error type'
+    })
     return NextResponse.json(
-      { error: 'Failed to upload resume' },
+      { 
+        error: 'Failed to upload resume',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }
@@ -134,8 +142,16 @@ export async function GET() {
     })
   } catch (error) {
     console.error('Resume fetch error:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      name: error instanceof Error ? error.name : 'Unknown error type'
+    })
     return NextResponse.json(
-      { error: 'Failed to fetch resume' },
+      { 
+        error: 'Failed to fetch resume',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }
@@ -178,9 +194,17 @@ export async function DELETE() {
       message: 'Resume deleted successfully'
     })
   } catch (error) {
-    console.error('Resume delete error:', error)
+    console.error('Resume deletion error:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      name: error instanceof Error ? error.name : 'Unknown error type'
+    })
     return NextResponse.json(
-      { error: 'Failed to delete resume' },
+      { 
+        error: 'Failed to delete resume',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }
