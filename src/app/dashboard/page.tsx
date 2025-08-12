@@ -185,6 +185,9 @@ export default function Dashboard() {
         imageUrls: uploadedImageUrls
       }
 
+      console.log('Submitting project data:', projectData)
+      console.log('Editing project:', editingProject)
+
       if (editingProject) {
         // Update existing project
         const response = await fetch(`/api/projects/${editingProject.id}`, {
@@ -196,7 +199,9 @@ export default function Dashboard() {
         })
 
         if (!response.ok) {
-          throw new Error('Failed to update project')
+          const errorData = await response.json().catch(() => ({}))
+          console.error('Update project error response:', errorData)
+          throw new Error(errorData.error || 'Failed to update project')
         }
       } else {
         // Add new project
@@ -209,7 +214,9 @@ export default function Dashboard() {
         })
 
         if (!response.ok) {
-          throw new Error('Failed to create project')
+          const errorData = await response.json().catch(() => ({}))
+          console.error('Create project error response:', errorData)
+          throw new Error(errorData.error || 'Failed to create project')
         }
       }
 

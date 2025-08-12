@@ -29,9 +29,16 @@ export async function GET(
       )
     }
     
+    // Transform _id to id for frontend compatibility
+    const transformedProject = {
+      ...project.toObject(),
+      id: project._id.toString(),
+      _id: undefined
+    }
+    
     return NextResponse.json({
       success: true,
-      data: project
+      data: transformedProject
     })
   } catch (error) {
     console.error('Project fetch error:', error)
@@ -82,23 +89,36 @@ export async function PUT(
       )
     }
     
+    // Transform _id to id for frontend compatibility
+    const transformedProject = {
+      ...project.toObject(),
+      id: project._id.toString(),
+      _id: undefined
+    }
+    
     return NextResponse.json({
       success: true,
-      data: project,
+      data: transformedProject,
       message: 'Project updated successfully'
     })
   } catch (error: any) {
     console.error('Project update error:', error)
+    console.error('Error name:', error.name)
+    console.error('Error message:', error.message)
+    console.error('Error stack:', error.stack)
+    console.error('Request body:', body)
+    console.error('Project ID:', id)
     
     if (error.name === 'ValidationError') {
+      console.error('Validation errors:', error.errors)
       return NextResponse.json(
-        { success: false, error: error.message },
+        { success: false, error: error.message, details: error.errors },
         { status: 400 }
       )
     }
     
     return NextResponse.json(
-      { success: false, error: 'Failed to update project' },
+      { success: false, error: 'Failed to update project', details: error.message },
       { status: 500 }
     )
   }

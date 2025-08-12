@@ -66,8 +66,8 @@ const ProjectSchema = new Schema<IProject>({
     type: String,
     required: [true, 'Project category is required'],
     enum: {
-      values: ['Web Development', 'Mobile Development', 'AI/ML', 'Blockchain', 'Desktop Application', 'Other'],
-      message: 'Category must be one of: Web Development, Mobile Development, AI/ML, Blockchain, Desktop Application, Other'
+      values: ['Web Development', 'Mobile Development', 'Frontend', 'Backend', 'AI/ML', 'Blockchain', 'Desktop Application', 'Other'],
+      message: 'Category must be one of: Web Development, Mobile Development, Frontend, Backend, AI/ML, Blockchain, Desktop Application, Other'
     }
   },
   date: {

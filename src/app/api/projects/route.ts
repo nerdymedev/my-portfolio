@@ -37,10 +37,17 @@ export async function GET(request: NextRequest) {
     
     const projects = await projectsQuery.exec()
     
+    // Transform _id to id for frontend compatibility
+    const transformedProjects = projects.map(project => ({
+      ...project.toObject(),
+      id: project._id.toString(),
+      _id: undefined
+    }))
+    
     return NextResponse.json({
       success: true,
-      projects: projects,
-      count: projects.length
+      projects: transformedProjects,
+      count: transformedProjects.length
     })
   } catch (error) {
     console.error('Projects fetch error:', error)
@@ -81,9 +88,16 @@ export async function POST(request: NextRequest) {
     const project = new Project(projectData)
     await project.save()
     
+    // Transform _id to id for frontend compatibility
+    const transformedProject = {
+      ...project.toObject(),
+      id: project._id.toString(),
+      _id: undefined
+    }
+    
     return NextResponse.json({
       success: true,
-      project: project,
+      project: transformedProject,
       message: 'Project created successfully'
     }, { status: 201 })
   } catch (error: any) {
