@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Project from '@/models/Project'
 
 // Ensure this route is dynamic for Vercel
 export const dynamic = 'force-dynamic'
@@ -10,6 +8,9 @@ export const revalidate = false
 // GET /api/projects - Fetch all projects
 export async function GET(request: NextRequest) {
   try {
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Project = (await import('@/models/Project')).default
+    
     await dbConnect()
     
     const { searchParams } = new URL(request.url)
@@ -66,6 +67,9 @@ export async function GET(request: NextRequest) {
 // POST /api/projects - Create a new project
 export async function POST(request: NextRequest) {
   try {
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Project = (await import('@/models/Project')).default
+    
     await dbConnect()
     
     const body = await request.json()

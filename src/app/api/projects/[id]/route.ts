@@ -1,7 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import dbConnect from '@/lib/mongodb'
-import Project from '@/models/Project'
-import mongoose from 'mongoose'
 
 // Ensure this route is dynamic for Vercel
 export const dynamic = 'force-dynamic'
@@ -14,6 +11,10 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Project = (await import('@/models/Project')).default
+    const mongoose = (await import('mongoose')).default
+    
     await dbConnect()
     
     const { id } = params
@@ -63,6 +64,10 @@ export async function PUT(
   const { id } = params
   
   try {
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Project = (await import('@/models/Project')).default
+    const mongoose = (await import('mongoose')).default
+    
     await dbConnect()
     
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -136,6 +141,10 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const dbConnect = (await import('@/lib/mongodb')).default
+    const Project = (await import('@/models/Project')).default
+    const mongoose = (await import('mongoose')).default
+    
     await dbConnect()
     
     const { id } = params
