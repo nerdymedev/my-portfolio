@@ -7,6 +7,19 @@ export const revalidate = false
 
 export async function POST(request: NextRequest) {
   try {
+    // Check environment variables first
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      console.error('Missing Cloudinary environment variables:', {
+        cloud_name: !!process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: !!process.env.CLOUDINARY_API_KEY,
+        api_secret: !!process.env.CLOUDINARY_API_SECRET
+      })
+      return NextResponse.json(
+        { error: 'Server configuration error: Missing Cloudinary credentials' },
+        { status: 500 }
+      )
+    }
+
     const { v2: cloudinary } = await import('cloudinary')
     
     // Configure Cloudinary
@@ -64,8 +77,16 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Upload error:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      name: error instanceof Error ? error.name : 'Unknown error type'
+    })
     return NextResponse.json(
-      { error: 'Failed to upload image' },
+      { 
+        error: 'Failed to upload image',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }
