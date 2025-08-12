@@ -226,8 +226,14 @@ export default function Dashboard() {
   const handleEdit = (project: Project) => {
     setEditingProject(project)
     setFormData({
-      ...project,
-      technologies: project.technologies.join(', ')
+      title: project.title,
+      description: project.description,
+      technologies: project.technologies.join(', '),
+      githubUrl: project.githubUrl || '',
+      liveUrl: project.liveUrl || '',
+      imageUrls: project.imageUrls,
+      category: project.category,
+      date: project.date
     })
     setUploadedImageUrls(project.imageUrls || [])
     setIsFormOpen(true)
@@ -803,7 +809,7 @@ export default function Dashboard() {
                     <div className="mb-4">
                       <div className="grid grid-cols-3 gap-3 mb-3">
                         {uploadedImageUrls.map((imageUrl, index) => (
-                          <div key={index} className="relative group">
+                          <div key={`uploaded-image-${imageUrl}-${index}`} className="relative group">
                             <img
                               src={imageUrl}
                               alt={`Project image ${index + 1}`}

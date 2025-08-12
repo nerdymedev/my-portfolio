@@ -70,7 +70,7 @@ export default function ImageCarousel({ images, alt, className = '' }: ImageCaro
       >
         {images.map((image, index) => (
           <img
-            key={index}
+            key={`carousel-${image}-${index}`}
             src={image}
             alt={`${alt} - Image ${index + 1}`}
             className="w-full h-full object-cover flex-shrink-0"
@@ -100,7 +100,7 @@ export default function ImageCarousel({ images, alt, className = '' }: ImageCaro
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
         {images.map((_, index) => (
           <button
-            key={index}
+            key={`dot-${index}`}
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-colors duration-200 ${
               index === currentIndex ? 'bg-white' : 'bg-white/50'

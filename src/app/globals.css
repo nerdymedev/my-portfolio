@@ -20,7 +20,12 @@
   }
   
   .btn-neon {
-    @apply bg-transparent border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-neon-cyan hover:shadow-neon-cyan animate-neon-pulse;
+    @apply bg-transparent border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    box-shadow: 0 0 2px #00ffff, 0 0 8px #00ffff;
+  }
+  
+  .btn-neon:hover {
+    box-shadow: 0 0 3px #00ffff, 0 0 12px #00ffff;
   }
   
   .card {
@@ -36,18 +41,18 @@
   }
   
   .neon-text {
-    @apply text-neon-cyan animate-neon-pulse;
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+    @apply text-neon-cyan;
+    text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
   }
   
   .neon-text-pink {
-    @apply text-neon-pink animate-neon-pulse;
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+    @apply text-neon-pink;
+    text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
   }
   
   .neon-text-green {
-    @apply text-neon-green animate-neon-pulse;
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+    @apply text-neon-green;
+    text-shadow: 0 0 3px currentColor, 0 0 6px currentColor;
   }
   
   .section-padding {
