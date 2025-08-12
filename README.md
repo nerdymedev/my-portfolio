@@ -1,6 +1,6 @@
 # Portfolio Website
 
-A modern, responsive portfolio website built with Next.js and Tailwind CSS, featuring a stylish design with a custom color theme of #c23f1b (red-orange) and black.
+A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS, featuring a dashboard for content management and dark/light theme support.
 
 ## Features
 
@@ -27,7 +27,9 @@ A modern, responsive portfolio website built with Next.js and Tailwind CSS, feat
 - **Language**: TypeScript
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
-- **Storage**: Local Storage (for demo purposes)
+- **Database**: MongoDB
+- **File Upload**: Multer for handling file uploads
+- **Theme Support**: Dark/Light mode toggle
 
 ## Getting Started
 
