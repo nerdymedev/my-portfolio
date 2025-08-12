@@ -54,10 +54,11 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  let body: any = null
+  const { id } = params
+  
   try {
     await dbConnect()
-    
-    const { id } = params
     
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -66,7 +67,7 @@ export async function PUT(
       )
     }
     
-    const body = await request.json()
+    body = await request.json()
     
     // Convert technologies string to array if needed
     if (body.technologies && typeof body.technologies === 'string') {
