@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <main className="min-h-screen">
             {children}
           </main>
+          <SpeedInsights />
         </body>
       </ThemeProvider>
     </html>

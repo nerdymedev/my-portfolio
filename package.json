@@ -16,6 +16,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vercel/speed-insights": "^1.2.0",
     "autoprefixer": "^10.0.1",
     "cloudinary": "^2.7.0",
     "framer-motion": "^10.16.16",
