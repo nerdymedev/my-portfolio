@@ -44,56 +44,13 @@ export default function Home() {
           const data = await response.json()
           setProjects(data.projects || [])
         } else {
-          // Fallback to default projects if API fails
-          const defaultProjects: Project[] = [
-            {
-              id: '1',
-              title: 'E-Commerce Platform',
-              description: 'A full-stack e-commerce solution with payment integration and admin dashboard.',
-              technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe', 'PostgreSQL'],
-              githubUrl: 'https://github.com',
-              liveUrl: 'https://example.com',
-              imageUrls: [
-                'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop&auto=format&q=80',
-                'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop&auto=format&q=80',
-                'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&auto=format&q=80'
-              ],
-              category: 'Web Development',
-              date: '2024-01-15'
-            },
-            {
-              id: '2',
-              title: 'Task Management App',
-              description: 'A collaborative task management application with real-time updates.',
-              technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
-              githubUrl: 'https://github.com',
-              liveUrl: 'https://example.com',
-              imageUrls: [
-                'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop&auto=format&q=80',
-                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&auto=format&q=80'
-              ],
-              category: 'Web Development',
-              date: '2024-02-20'
-            },
-            {
-              id: '3',
-              title: 'Weather Dashboard',
-              description: 'A responsive weather dashboard with location-based forecasts.',
-              technologies: ['Vue.js', 'TypeScript', 'Chart.js', 'OpenWeather API'],
-              githubUrl: 'https://github.com',
-              imageUrls: [
-                'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=600&fit=crop&auto=format&q=80',
-                'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=600&fit=crop&auto=format&q=80',
-                'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&h=600&fit=crop&auto=format&q=80'
-              ],
-              category: 'Web Development',
-              date: '2024-03-10'
-            }
-          ]
-          setProjects(defaultProjects)
+          // No fallback projects - only show actual projects from database
+          setProjects([])
         }
       } catch (error) {
         console.error('Error loading projects:', error)
+        // No fallback projects - only show actual projects from database
+        setProjects([])
       }
     }
     
@@ -291,72 +248,74 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="section-padding bg-gradient-to-br from-surface dark:from-surface-dark to-white dark:to-background-dark">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6 neon-text-green">Featured Projects</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Here are some of my recent projects that showcase my skills and passion for development.
-            </p>
-          </motion.div>
+      {projects.length > 0 && (
+        <section id="projects" className="section-padding bg-gradient-to-br from-surface dark:from-surface-dark to-white dark:to-background-dark">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6 neon-text-green">Featured Projects</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Here are some of my recent projects that showcase my skills and passion for development.
+              </p>
+            </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="card-neon overflow-hidden cursor-pointer"
-                onClick={() => openModal(project)}
-              >
-                <div className="h-64 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
-                  {project.imageUrls && project.imageUrls.length > 0 ? (
-                    <>
-                      <Image 
-                        src={project.imageUrls[0]} 
-                        alt={project.title}
-                        width={400}
-                        height={256}
-                        className="w-full h-full object-cover"
-                      />
-                      {project.imageUrls.length > 1 && (
-                        <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                  className="card-neon overflow-hidden cursor-pointer"
+                  onClick={() => openModal(project)}
+                >
+                  <div className="h-64 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
+                    {project.imageUrls && project.imageUrls.length > 0 ? (
+                      <>
+                        <Image 
+                          src={project.imageUrls[0]} 
+                          alt={project.title}
+                          width={400}
+                          height={256}
+                          className="w-full h-full object-cover"
+                        />
+                        {project.imageUrls.length > 1 && (
+                          <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            {project.imageUrls.length}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-4 bg-white/50 dark:bg-gray-700/50 rounded-lg flex items-center justify-center">
+                          <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                           </svg>
-                          {project.imageUrls.length}
                         </div>
-                      )}
-                    </>
-                  ) : (
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-white/50 dark:bg-gray-700/50 rounded-lg flex items-center justify-center">
-                        <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                        </svg>
+                        <p className="text-gray-600 dark:text-gray-300 font-medium">Project Image</p>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 font-medium">Project Image</p>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2 dark:text-white">{project.title}</h3>
-                </div>
-              </motion.div>
-            ))}
+                    )}
+                  </div>
+                  
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold mb-2 dark:text-white">{project.title}</h3>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Project Modal */}
       <ProjectModal 
