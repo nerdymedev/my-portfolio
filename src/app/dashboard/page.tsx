@@ -216,7 +216,10 @@ export default function Dashboard() {
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}))
           console.error('Create project error response:', errorData)
-          throw new Error(errorData.error || 'Failed to create project')
+          const errorMessage = errorData.details ? 
+            `${errorData.error}: ${Array.isArray(errorData.details) ? errorData.details.join(', ') : errorData.details}` :
+            errorData.error || 'Failed to create project'
+          throw new Error(errorMessage)
         }
       }
 
@@ -772,6 +775,7 @@ export default function Dashboard() {
                       <option value="Backend">Backend</option>
                       <option value="AI/ML">AI/ML</option>
                       <option value="Blockchain">Blockchain</option>
+                      <option value="Desktop Application">Desktop Application</option>
                       <option value="Other">Other</option>
                     </select>
                   </div>

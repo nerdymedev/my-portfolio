@@ -111,16 +111,33 @@ export async function POST(request: NextRequest) {
     }, { status: 201 })
   } catch (error: any) {
     console.error('Project creation error:', error)
+    console.error('Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+      errors: error.errors
+    })
     
     if (error.name === 'ValidationError') {
+      const validationErrors = Object.values(error.errors || {}).map((err: any) => err.message)
       return NextResponse.json(
-        { success: false, error: error.message },
+        { 
+          success: false, 
+          error: 'Validation failed',
+          details: validationErrors,
+          fullError: error.message
+        },
         { status: 400 }
       )
     }
     
     return NextResponse.json(
-      { success: false, error: 'Failed to create project' },
+      { 
+        success: false, 
+        error: 'Failed to create project',
+        details: error.message,
+        errorType: error.name
+      },
       { status: 500 }
     )
   }
